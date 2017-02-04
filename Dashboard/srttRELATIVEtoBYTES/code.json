@@ -1,0 +1,2 @@
+{"intervals":["2017-01-31T13:36:45-06:00/2017-01-31T14:36:45-06:00"],"dataSource":"flows","granularity":"minute","queryType":"timeseries","aggregations":[{"type":"doubleSum","name":"FWD Bytes","fieldName":"fwd_bytes"},{"type":"doubleSum","name":"srtt","fieldName":"srtt_usec"},{"type":"javascript","name":"SRTT X 100","fieldNames":["srtt_usec"],"fnAggregate":"function(current, a)       { return current +  (a * 100); }","fnCombine":"function(partialA)  { return partialA; }","fnReset":"function()            { return 0; }"}]}
+

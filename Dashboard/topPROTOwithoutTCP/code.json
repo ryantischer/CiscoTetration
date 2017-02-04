@@ -1,0 +1,1 @@
+{"dataSource":"flows","granularity":"all","queryType":"topN","threshold":10,"metric":"count","aggregations":[{"type":"count","fieldName":"","name":"count"}],"intervals":["2017-01-31T13:36:45-06:00/2017-01-31T14:36:45-06:00"],"dimension":"proto","filter":{"type":"not","field":{"type":"regex","dimension":"proto","pattern":"TCP"}}}

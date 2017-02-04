@@ -1,0 +1,2 @@
+{"intervals":["2017-01-31T13:36:45-06:00/2017-01-31T14:36:45-06:00"],"dataSource":"flows","granularity":"thirty_minute","queryType":"timeseries","aggregations":[{"type":"doubleSum","name":"Transactions","fieldName":"rev_fin_count"}],"filter":{"type":"regex","dimension":"dst_port","pattern":"80"}}
+

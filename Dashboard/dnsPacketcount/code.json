@@ -1,0 +1,1 @@
+{"intervals":["2017-01-31T13:36:45-06:00/2017-01-31T14:36:45-06:00"],"dataSource":"flows","granularity":"minute","queryType":"timeseries","aggregations":[{"type":"doubleSum","fieldName":"rev_pkts","name":"Packets"}],"filter":{"type":"selector","dimension":"dst_port","value":"53"}}
