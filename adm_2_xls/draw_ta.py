@@ -48,6 +48,35 @@ for clusters in jsondata['clusters']:
 print clusterList
 #build the policys
 '''
+worksheet1 = workbook.add_worksheet('Policys')
+worksheet1.set_column(0, 0, 30)   # Column  A   width set to 20.
+worksheet1.set_column(1, 10, 8)   # Column  b-fuck   width set to 20.
+
+print jsondata['policies'][0]['whitelist'][0]['port'][0]
+
+row = 1
+col = 1
+
+
+tcounter = 0
+bcounter = 0
+
+for nodes in jsondata['policies']:
+      n = (nodes['src_name'])
+      worksheet1.write(row, 0,n)
+      n = (nodes['dst_name'])
+      worksheet1.write(0, col,n)
+      for ports in jsondata['policies'][tcounter]['whitelist']:
+        n = ""
+        n = str(n) + str(jsondata['policies'][tcounter]['whitelist'][0]['port'][bcounter])
+        print n
+        worksheet1.write(row, col,n)
+        bcounter = bcounter + 1
+
+
+      row = row + 1
+      col = col +1
+      tcounter = tcounter +1
 
 '''
 
@@ -55,7 +84,6 @@ print clusterList
 
 workbook = xlsxwriter.Workbook('TA_ADM.xlsx')
 worksheet = workbook.add_worksheet('Clusters')
-worksheet1 = workbook.add_worksheet('Policys')
 worksheet.set_column(0, 0, 30)   # Column  A   width set to 20.
 worksheet.set_column(1, 10, 15)   # Column  A   width set to 20.
 
@@ -75,6 +103,40 @@ for item in clusterData:
         counter = counter + 1
         col = 0
         row = row + 1
+
+
+#build the policys
+#This is broke for now!!!!!
+
+worksheet1 = workbook.add_worksheet('Policys')
+worksheet1.set_column(0, 0, 30)   # Column  A   width set to 20.
+worksheet1.set_column(1, 10, 8)   # Column  b-fuck   width set to 20.
+
+print jsondata['policies'][0]['whitelist'][0]['port'][0]
+
+row = 1
+col = 1
+
+
+tcounter = 0
+bcounter = 0
+
+for nodes in jsondata['policies']:
+      n = (nodes['src_name'])
+      worksheet1.write(row, 0,n)
+      n = (nodes['dst_name'])
+      worksheet1.write(0, col,n)
+      for ports in jsondata['policies'][tcounter]['whitelist']:
+        n = ""
+        n = str(n) + str(jsondata['policies'][tcounter]['whitelist'][0]['port'][0])
+        print n
+        worksheet1.write(row, col,n)
+        bcounter = bcounter + 1
+
+
+      row = row + 1
+      col = col +1
+      tcounter = tcounter +1
 
 workbook.close()
 
