@@ -1,0 +1,51 @@
+{
+ "configs": [
+  {
+   "name": "Example name for IPv4 config",
+   "vip": "10.1.85.14",
+   "vip_port": 3306,
+   "protocol": 6,
+   "backends": [
+    {
+     "backend_ip": "10.1.85.11",
+     "backend_port": 3306
+    },
+    {
+     "backend_ip": "10.1.85.12",
+     "backend_port": 3306
+    },
+    {
+     "backend_ip": "10.1.85.13",
+     "backend_port": 3306
+    }
+   ],
+   "nat_subnet_pool": [
+    "10.10.0.0/16",
+    "10.20.0.0/16"
+   ]
+  },
+  {
+   "name": "Example name for IPv6 config",
+   "vip": "fe80::",
+   "vip_port": 80,
+   "protocol": 6,
+   "backends": [
+    {
+     "backend_ip": "fe80:0001::",
+     "backend_port": 80
+    },
+    {
+     "backend_ip": "fe80:0002::",
+     "backend_port": 80
+    },
+    {
+     "backend_ip": "fe80:0003::",
+     "backend_port": 80
+    }
+   ],
+   "nat_subnet_pool": [
+    "fe80::/16"
+   ]
+  }
+ ]
+}
