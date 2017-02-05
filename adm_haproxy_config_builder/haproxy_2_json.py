@@ -14,59 +14,37 @@ frontEnd = []
 tmp = []
 
 TA_Config = {
- "configs": [
-  {
-   "name": "Example name for IPv4 config",
-   "vip": "10.1.85.14",
-   "vip_port": 3306,
-   "protocol": 6,
-   "backends": [
+  "configs": [
     {
-     "backend_ip": "10.1.85.11",
-     "backend_port": 3306
-    },
-    {
-     "backend_ip": "10.1.85.12",
-     "backend_port": 3306
-    },
-    {
-     "backend_ip": "10.1.85.13",
-     "backend_port": 3306
+      "nat_subnet_pool": [
+        "7.0.0.0/24",
+        "7.0.0.0/24"
+      ],
+      "protocol": 6,
+      "name": "Reporting NLB IPv4 Config",
+      "vip": "7.0.0.50",
+      "backends": [
+        {
+          "backend_port": 80,
+          "backend_ip": "7.0.0.41"
+        },
+      ],
+      "type": 2,
+      "vip_port": 80
     }
-   ],
-   "nat_subnet_pool": [
-    "0.0.0.0/0",
-    "0.0.0.0/0"
-   ]
-  },
-  {
-   "name": "Example name for IPv6 config",
-   "vip": "fe80::",
-   "vip_port": 80,
-   "protocol": 6,
-   "backends": [
-    {
-     "backend_ip": "fe80:0001::",
-     "backend_port": 80
-    },
-    {
-     "backend_ip": "fe80:0002::",
-     "backend_port": 80
-    },
-    {
-     "backend_ip": "fe80:0003::",
-     "backend_port": 80
-    }
-   ],
-   "nat_subnet_pool": [
-    "fe80::/16"
-   ]
-  }
- ]
+  ]
 }
+
+
+bindAddress = ""
+found = "False"
 
 with open('haproxy.cfg', 'r') as searchfile:
     for line in searchfile:
+
+        if found == "True":
+         bindAddress = line
+         found = "False"
         #find backend
         tmp = re.findall(r"server \b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b.*",line)
         if tmp != []:
@@ -74,14 +52,45 @@ with open('haproxy.cfg', 'r') as searchfile:
         #find frontEnd
         tmp = re.findall("^listen  haproxy_.*", line)
         if tmp != []:
+            found = "True"
+        tmp = re.findall("node haproxy.*", line)
+        if tmp != []:
             frontEnd = tmp
 
+len = len(realServer)
 
-print frontEnd
-#print TA_Config["configs"][0]['vip']
-#print TA_Config["configs"][0]['backends'][0]
+counter = 0
+
+
 for i in realServer:
- tmp = realServer[0]
- 
- print tmp
 
+ tmp = realServer[counter]
+
+
+ tmp = str(tmp)
+ tmp =  tmp.split(" ", 3)
+ tmp2 = ""
+ tmp2 = str(tmp[2])
+ tmp2 = tmp2.split(":",2)
+ #TA_Config["configs"][0]["backends"][counter]["backend_ip"] = tmp2[0]
+ #TA_Config["configs"][0]["backends"][counter]["backend_port"] = tmp2[1]
+ counter = counter + 1
+
+
+bindAddress = bindAddress.split(":",2)
+
+#change the dict
+TA_Config["configs"][0]["name"] = "haproxy import"
+#TA_Config["configs"][0]["vip"] =
+
+#get the IP out of the file.  Got to be a better way to do this
+frontEnd = str(frontEnd)
+tmp = frontEnd.split("_",2)
+tmp2 = str(tmp[1])
+tmp2 = tmp2.split("'",2)
+TA_Config["configs"][0]["vip"] = tmp2[0]
+TA_Config["configs"][0]["vip_port"] = bindAddress[1]
+
+#for i in range(0,len - 1):
+["configs"][0]["backends"][i][backend_ip] =
+print TA_Config
