@@ -1,10 +1,17 @@
 #!/usr/bin/python
 __author__ = 'Ryan Tischer'
 
-#draw_ta.py: Description of program or code.
+#adm_2_xlsE.py: Description of program or code.
 #Use at your own risk
 #Contact @ryantischer
  
+#!/usr/bin/python
+__author__ = 'Ryan Tischer'
+
+#draw_ta.py: Description of program or code.
+#Use at your own risk
+#Contact @ryantischer
+
 import json
 import xlsxwriter
 
