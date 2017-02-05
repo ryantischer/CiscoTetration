@@ -45,40 +45,6 @@ for clusters in jsondata['clusters']:
 
     tcounter = tcounter + 1
 
-print clusterList
-#build the policys
-'''
-worksheet1 = workbook.add_worksheet('Policys')
-worksheet1.set_column(0, 0, 30)   # Column  A   width set to 20.
-worksheet1.set_column(1, 10, 8)   # Column  b-fuck   width set to 20.
-
-print jsondata['policies'][0]['whitelist'][0]['port'][0]
-
-row = 1
-col = 1
-
-
-tcounter = 0
-bcounter = 0
-
-for nodes in jsondata['policies']:
-      n = (nodes['src_name'])
-      worksheet1.write(row, 0,n)
-      n = (nodes['dst_name'])
-      worksheet1.write(0, col,n)
-      for ports in jsondata['policies'][tcounter]['whitelist']:
-        n = ""
-        n = str(n) + str(jsondata['policies'][tcounter]['whitelist'][0]['port'][bcounter])
-        print n
-        worksheet1.write(row, col,n)
-        bcounter = bcounter + 1
-
-
-      row = row + 1
-      col = col +1
-      tcounter = tcounter +1
-
-'''
 
 # Create a workbook and add a worksheet.
 
@@ -93,7 +59,8 @@ col = 0
 for item in clusterData:
     if item != 'unknown':
         worksheet.write(row, col,item)
-        print item
+        #un comment to  print clusters
+        #print item
         counter = 0
 
         for node in clusterData[item]:
@@ -106,34 +73,45 @@ for item in clusterData:
 
 
 #build the policys
-#This is broke for now!!!!!
 
+#build the workbook
 worksheet1 = workbook.add_worksheet('Policys')
 worksheet1.set_column(0, 0, 30)   # Column  A   width set to 20.
-worksheet1.set_column(1, 10, 8)   # Column  b-fuck   width set to 20.
 
-print jsondata['policies'][0]['whitelist'][0]['port'][0]
+
 
 row = 1
 col = 1
 
-
+#init var used in nested for loops
 tcounter = 0
 bcounter = 0
+p = []
 
+#loop through all policies in ADM file
 for nodes in jsondata['policies']:
+        #write src to the row, dst to the column
       n = (nodes['src_name'])
       worksheet1.write(row, 0,n)
       n = (nodes['dst_name'])
       worksheet1.write(0, col,n)
+
+      bcounter = 0
+      p =[]
+
+      #loop though ports for each policy
       for ports in jsondata['policies'][tcounter]['whitelist']:
-        n = ""
-        n = str(n) + str(jsondata['policies'][tcounter]['whitelist'][0]['port'][0])
-        print n
-        worksheet1.write(row, col,n)
+
+        p.append(ports['port'][0])
+
         bcounter = bcounter + 1
+        #write to the worksheet
+      worksheet1.write(row, col,str(p))
 
-
+      #figure out the column len to set column size
+      colLen = len(str(p))
+        #set the col size
+      worksheet1.set_column(col, col, colLen + 8)
       row = row + 1
       col = col +1
       tcounter = tcounter +1
