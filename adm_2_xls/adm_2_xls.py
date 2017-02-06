@@ -26,7 +26,7 @@ import xlsxwriter
 import sys
 
 if len(sys.argv) == 2:
-    print "invalid input...Usage is 'python adm_2_xls ADMFILE.json NAME_OUT_PUT_FILE.xlsx"
+    print "invalid input...Usage is 'python adm_2_xls ADMFILE.json' NAME_OUT_PUT_FILE.xlsx"
     sys.exit()
 
 theFile = sys.argv[1]
