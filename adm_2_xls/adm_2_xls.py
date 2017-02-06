@@ -13,13 +13,6 @@ __author__ = 'Ryan Tischer'
     #clean up code
     #XLS charts
 
- 
-#!/usr/bin/python
-__author__ = 'Ryan Tischer'
-
-#draw_ta.py: Description of program or code.
-#Use at your own risk
-#Contact @ryantischer
 
 import json
 import xlsxwriter
