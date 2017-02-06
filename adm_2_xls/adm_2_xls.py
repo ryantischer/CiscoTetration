@@ -1,9 +1,18 @@
 #!/usr/bin/python
 __author__ = 'Ryan Tischer'
 
-#adm_2_xlsE.py: Description of program or code.
+#adm_2_xlsE.py: Converts Tetration Output to XLS
+#Creates to work sheets.
 #Use at your own risk
 #Contact @ryantischer
+
+
+#ToDO:
+    #input from commandline - done
+    #error handling
+    #clean up code
+    #XLS charts
+
  
 #!/usr/bin/python
 __author__ = 'Ryan Tischer'
@@ -14,8 +23,16 @@ __author__ = 'Ryan Tischer'
 
 import json
 import xlsxwriter
+import sys
 
-with open('Mirantis Openstack CMP-v18-policies.json') as f:
+if len(sys.argv) == 2:
+    print "invalid input...Usage is 'python adm_2_xls ADMFILE.json NAME_OUT_PUT_FILE.xlsx"
+    sys.exit()
+
+theFile = sys.argv[1]
+theOutput = sys.argv[2]
+
+with open(theFile) as f:
     a = f.read()
     jsondata = json.loads(a)
 
@@ -30,7 +47,7 @@ clusterData= {}
 #Top for loop counter
 tcounter = 0
 
-#build the clusters
+#build the clusters not sure if I need/want to do this.  May be easier to write to xls directly
 
 for clusters in jsondata['clusters']:
 
@@ -53,21 +70,31 @@ for clusters in jsondata['clusters']:
     tcounter = tcounter + 1
 
 
-# Create a workbook and add a worksheet.
+# Create a workbook and add a worksheet and format
 
-workbook = xlsxwriter.Workbook('TA_ADM.xlsx')
+workbook = xlsxwriter.Workbook(theOutput)
 worksheet = workbook.add_worksheet('Clusters')
 worksheet.set_column(0, 0, 30)   # Column  A   width set to 20.
 worksheet.set_column(1, 10, 15)   # Column  A   width set to 20.
 
-row = 0
+bold = workbook.add_format({'bold': True})
+
+highlightYellow = workbook.add_format()
+
+highlightYellow.set_bg_color('yellow')
+
+row = 1
 col = 0
 
 for item in clusterData:
     if item != 'unknown':
+        if (row%2 == 0):
+            worksheet.set_row(row, 15, highlightYellow)
+
         worksheet.write(row, col,item)
         #un comment to  print clusters
         #print item
+        worksheet.write(0,0, "Discovered Clusters", bold )
         counter = 0
 
         for node in clusterData[item]:
@@ -99,6 +126,10 @@ p = []
 for nodes in jsondata['policies']:
         #write src to the row, dst to the column
       n = (nodes['src_name'])
+      if (row%2 == 0):
+
+            worksheet1.set_row(row, 15, highlightYellow)
+
       worksheet1.write(row, 0,n)
       n = (nodes['dst_name'])
       worksheet1.write(0, col,n)
