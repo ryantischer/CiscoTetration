@@ -7,7 +7,7 @@ repo includes 3 example outputs...
   RTPLAB_Sharepoint_ADM.xlsx
   Mirantis_OS_ADM.xlsx
 
-#draw_ta.py: 
+#adm_2_xls: 
 #Use at your own risk
 #Contact @ryantischer
 '''
