@@ -7,7 +7,10 @@ __author__ = 'Ryan Tischer'
 
 import re
 
-#http://stackoverflow.com/questions/4785244/search-a-text-file-and-print-related-lines-in-python
+#todo
+#make it work
+#deal with different types of configurations
+#nat pool
 
 realServer = []
 frontEnd = []
@@ -60,21 +63,27 @@ with open('haproxy.cfg', 'r') as searchfile:
 len = len(realServer)
 
 counter = 0
-
+tmp={}
 
 for i in realServer:
 
- tmp = realServer[counter]
+     #build the backends
+
+    tmp["backend_ip"] = str(realServer[counter][0]).split(" ",4)[1]
+
+    TA_Config["configs"][0]["backends"].append(tmp)
+
+    tmp = str(realServer[0]).split(":",3)[1]
+
+    #tmp = tmp.split(" ",2)
+    #print tmp
+    #tmp["backend_port"] = tmp[0]
+    #print tmp
 
 
- tmp = str(tmp)
- tmp =  tmp.split(" ", 3)
- tmp2 = ""
- tmp2 = str(tmp[2])
- tmp2 = tmp2.split(":",2)
- #TA_Config["configs"][0]["backends"][counter]["backend_ip"] = tmp2[0]
- #TA_Config["configs"][0]["backends"][counter]["backend_port"] = tmp2[1]
- counter = counter + 1
+
+    counter = counter + 1
+
 
 
 bindAddress = bindAddress.split(":",2)
@@ -92,5 +101,9 @@ TA_Config["configs"][0]["vip"] = tmp2[0]
 TA_Config["configs"][0]["vip_port"] = bindAddress[1]
 
 #for i in range(0,len - 1):
-["configs"][0]["backends"][i][backend_ip] =
-print TA_Config
+#    print realServer
+#   print str(realServer[0][0]).split(" ",4)[1]
+#TA_Config["configs"][0]["backends"][i][backend_ip] =
+#print TA_Config
+print TA_Config["configs"][0]["backends"][1]
+print TA_Config["configs"][0]["backends"][0]
